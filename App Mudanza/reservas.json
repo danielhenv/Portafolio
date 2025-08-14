@@ -1,14 +1,1 @@
-[
-    {
-        "id": "a5c0e6c6-a684-4aa4-8408-47801acbc4fa",
-        "customer_name": "Claudia Gonzalez",
-        "email": "clau.gonz@gmail.com",
-        "phone": "123456789",
-        "pickup_address": "Los almendros 123",
-        "delivery_address": "Las nueces 123",
-        "date": "2025-12-24",
-        "time": "15:00",
-        "service_type": "local",
-        "notes": "Vivo en el 4to piso"
-    }
-]
+[]
