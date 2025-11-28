@@ -16,4 +16,5 @@ class ReservaForm(forms.ModelForm):
         widgets = {
             'fecha_mudanza': forms.DateInput(attrs={'type': 'date'}),
             'hora_mudanza': forms.TimeInput(attrs={'type': 'time'}),
+            'notas': forms.Textarea(attrs={'rows': 3}),
         }
