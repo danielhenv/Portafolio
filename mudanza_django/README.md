@@ -1,89 +1,76 @@
-App Mudanza – Sistema de Reservas en Django
+Sistema de Reservas de Mudanzas – Aplicación Web en Django
 
-Este proyecto implementa un sistema web para gestionar reservas de mudanzas.
-Fue desarrollado utilizando Django, con autenticación, administración de usuarios, formularios validados y una interfaz moderna basada en plantillas personalizadas.
+Este proyecto consiste en una aplicación web desarrollada con el framework Django, cuyo propósito es administrar reservas de servicios de mudanza. Incluye gestión de clientes, registro de reservas, autenticación de usuarios, uso del panel de administración y una interfaz web personalizada para el acceso y visualización de la información.
 
-🧰 Tecnologías utilizadas
+Tecnologías utilizadas
 
 Python 3
 
 Django 5
 
-HTML5 / CSS3
+HTML5 y CSS3
 
 Django Templates
 
 Django ORM
 
-Autenticación con Django Auth
+Sistema de autenticación de Django
 
-SQLite (por defecto)
+Base de datos SQLite (configurable a MySQL u otros motores)
 
-Django Admin
+Funcionalidades principales
+Gestión de reservas
 
-📦 Funcionalidades principales
-✔ Gestión de reservas
+Registro de reservas a través de un formulario basado en modelos.
 
-Listado de reservas en tabla estilizada.
+Visualización del listado de reservas existentes.
 
-Creación de nuevas reservas mediante formulario validado.
+Asociación directa entre clientes y reservas mediante clave foránea.
 
-Relación Cliente → Reserva.
+Autenticación y control de acceso
 
-✔ Autenticación de usuarios
+Inicio y cierre de sesión utilizando el sistema de autenticación integrado de Django.
 
-Inicio y cierre de sesión.
+Restricción de acceso a las vistas principales mediante decoradores de autorización.
 
-Redirección automática según estado del usuario.
+Redirección automática según el estado de autenticación del usuario.
 
-Rutas protegidas mediante login_required.
+Panel de administración
 
-✔ Panel de administración
+Administración de clientes, reservas y usuarios desde el módulo de administración de Django.
 
-Administración completa de:
+Incorporación de buscadores, filtros y ordenamiento para facilitar la gestión de datos.
 
-Clientes
+Configuración de permisos por usuario y por grupo.
 
-Reservas
+Interfaz de usuario
 
-Usuarios y permisos
+Pantalla de inicio de sesión personalizada.
 
-Búsquedas por nombre, email y direcciones.
+Plantilla base para unificar el diseño de las vistas.
 
-Filtros por tipo de servicio y fecha.
+Archivos estáticos organizados para aplicar estilos globales.
 
-Navegación por jerarquía temporal (date_hierarchy).
-
-✔ Interfaz moderna
-
-Pantalla de login con fondo degradado estilo app profesional.
-
-Layout global con diseño oscuro.
-
-Botones redondeados y tabla estilizada.
-
-Formularios con inputs y validación visual limpia.
-
-🗂 Estructura del proyecto
+Estructura principal del proyecto
 mudanza_django/
 │
 ├── mudanza_site/          # Configuración general del proyecto
 │   ├── settings.py
 │   ├── urls.py
-│   └── ...
 │
 ├── reservas/              # Aplicación principal
-│   ├── models.py          # Modelos Cliente y Reserva
-│   ├── forms.py           # Formulario de reserva
-│   ├── views.py           # Lógica de vistas
-│   ├── urls.py            # Rutas principales
+│   ├── models.py
+│   ├── forms.py
+│   ├── views.py
+│   ├── urls.py
 │   └── templates/
-│       └── reservas/      # Templates de la app
+│       └── reservas/
+│           ├── lista_reservas.html
+│           └── crear_reserva.html
 │
-├── templates/             # Plantillas globales
+├── templates/             # Plantillas generales
 │   └── registration/
-│       ├── login.html     # Pantalla de login personalizada
-│       └── logged_out.html (opcional)
+│       └── login.html
 │
 ├── static/                # Archivos estáticos
 │   └── css/
@@ -91,108 +78,90 @@ mudanza_django/
 │
 └── manage.py
 
-🔧 Instalación y ejecución
-1. Crear entorno virtual
+Instalación y ejecución
+1. Creación del entorno virtual
 python3 -m venv venv
-source venv/bin/activate  # Mac/Linux
-venv\Scripts\activate     # Windows
 
-2. Instalar dependencias
+
+Activación:
+
+Mac/Linux:
+
+source venv/bin/activate
+
+
+Windows:
+
+venv\Scripts\activate
+
+2. Instalación de dependencias
 pip install django
 
-3. Migrar base de datos
+3. Migración inicial de la base de datos
 python manage.py migrate
 
-4. Crear superusuario
+4. Creación del usuario administrador
 python manage.py createsuperuser
 
-5. Ejecutar servidor de desarrollo
+5. Ejecución del servidor de desarrollo
 python manage.py runserver
 
-6. Acceder a las páginas principales
-Sección	URL
-Login	http://127.0.0.1:8000/accounts/login/
+6. Acceso a secciones principales
+Función	URL
+Inicio de sesión	http://127.0.0.1:8000/accounts/login/
 
 Listado de reservas	http://127.0.0.1:8000/reservas/
 
-Crear nueva reserva	http://127.0.0.1:8000/reservas/nueva/
+Registro de nueva reserva	http://127.0.0.1:8000/reservas/nueva/
 
 Panel de administración	http://127.0.0.1:8000/admin/
-🧩 Modelos principales
-🧑 Cliente
+Modelos implementados
+Cliente
 
-nombre
+Nombre
 
-email
+Correo electrónico
 
-telefono
+Teléfono
 
-📦 Reserva
+Reserva
 
-cliente (FK)
+Cliente asociado
 
-fecha_mudanza
+Fecha de mudanza
 
-hora_mudanza
+Hora de mudanza
 
-direccion_origen
+Dirección de origen
 
-direccion_destino
+Dirección de destino
 
-tipo_servicio
+Tipo de servicio
 
-notas
+Observaciones
 
-Relación: un Cliente puede tener varias Reservas.
+Las reservas mantienen una relación uno-a-muchos con los clientes.
 
-🔐 Seguridad y permisos
+Seguridad y permisos
 
-Rutas críticas protegidas con @login_required.
+Las vistas relacionadas con la gestión de reservas requieren inicio de sesión.
 
-Autenticación incorporada con django.contrib.auth.
+Se utiliza el sistema de permisos estándar de Django.
 
-Administración completa desde /admin/:
+El panel de administración permite gestionar usuarios, grupos y niveles de acceso.
 
-Creación de usuarios
+El diseño del flujo asegura que solo usuarios autenticados puedan registrar o visualizar reservas.
 
-Permisos personalizados
+Interfaz y diseño
 
-Grupos
+La pantalla de inicio de sesión cuenta con una plantilla personalizada.
 
-Personalización del admin con:
+Se utiliza una plantilla base para las vistas internas del sistema.
 
-Columnas (list_display)
+Los estilos se gestionan mediante archivos estáticos almacenados en la carpeta correspondiente.
 
-Filtros (list_filter)
+La interfaz presenta una estructura organizada y coherente con un diseño moderno.
 
-Buscadores (search_fields)
+Conclusiones
 
-Navegación por fecha (date_hierarchy)
-
-🎨 Diseño e interfaz
-
-Pantalla de login inspirada en diseños modernos con fondo degradado.
-
-Interfaz oscura con tarjetas, tablas y botones estilizados.
-
-CSS propio ubicado en static/css/estilos.css.
-
-Plantilla base base.html para mantener una estética coherente.
-
-📘 Conclusión
-
-Este proyecto demuestra:
-
-Dominio del framework Django
-
-Manejo de modelos, formularios, vistas y URLs
-
-Autenticación, autorización y gestión de usuarios
-
-Personalización del admin
-
-Uso de plantillas y archivos estáticos
-
-Diseño moderno y organización profesional del código
-
-Es una base sólida para sistemas empresariales reales.
+El sistema de reservas desarrollado implementa los componentes fundamentales del framework Django, incluyendo modelos, vistas, formularios, autenticación, administración y manejo de archivos estáticos. Su estructura es adecuada para aplicaciones empresariales de baja y media complejidad, y constituye una base sólida para futuras extensiones, tales como edición y eliminación de reservas, integración con otros motores de base de datos o ampliación de funcionalidades de cliente.
