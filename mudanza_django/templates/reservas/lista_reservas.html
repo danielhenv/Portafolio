@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de reservas</title>
+</head>
+<body>
+    <h1>Listado de reservas de mudanza</h1>
+
+    {% if reservas %}
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Origen</th>
+                <th>Destino</th>
+                <th>Tipo de servicio</th>
+            </tr>
+            {% for r in reservas %}
+            <tr>
+                <td>{{ r.id }}</td>
+                <td>{{ r.cliente.nombre }}</td>
+                <td>{{ r.fecha_mudanza }}</td>
+                <td>{{ r.hora_mudanza }}</td>
+                <td>{{ r.direccion_origen }}</td>
+                <td>{{ r.direccion_destino }}</td>
+                <td>{{ r.get_tipo_servicio_display }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No hay reservas registradas.</p>
+    {% endif %}
+</body>
+</html>
