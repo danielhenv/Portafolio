@@ -1,6 +1,17 @@
-from django.shortcuts import render
-from .models import Reserva
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .forms import ReservaForm
 
-def lista_reservas(request):
-    reservas = Reserva.objects.select_related('cliente').all().order_by('fecha_mudanza', 'hora_mudanza')
-    return render(request, 'reservas/lista_reservas.html', {'reservas': reservas})
+@login_required
+def crear_reserva(request):
+    if request.method == 'POST':
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            reserva = form.save(commit=False)
+            reserva.creado_por = request.user
+            reserva.save()
+            return redirect('reservas:lista_reservas')
+    else:
+        form = ReservaForm()
+    return render(request, 'reservas/crear_reserva.html', {'form': form})
+

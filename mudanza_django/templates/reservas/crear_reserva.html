@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva reserva</title>
+</head>
+<body>
+    <h1>Crear nueva reserva de mudanza</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+
+    <p><a href="{% url 'reservas:lista_reservas' %}">Volver al listado</a></p>
+</body>
+</html>
