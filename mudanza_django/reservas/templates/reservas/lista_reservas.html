@@ -1,37 +1,51 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Listado de reservas</title>
-</head>
-<body>
-    <h1>Listado de reservas de mudanza</h1>
+{% extends 'base.html' %}
+
+{% block title %}Listado de reservas{% endblock %}
+
+{% block content %}
+    <h1>Listado de reservas</h1>
 
     {% if reservas %}
-        <table border="1" cellpadding="5">
-            <tr>
-                <th>ID</th>
-                <th>Cliente</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Origen</th>
-                <th>Destino</th>
-                <th>Tipo de servicio</th>
-            </tr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody>
             {% for r in reservas %}
-            <tr>
-                <td>{{ r.id }}</td>
-                <td>{{ r.cliente.nombre }}</td>
-                <td>{{ r.fecha_mudanza }}</td>
-                <td>{{ r.hora_mudanza }}</td>
-                <td>{{ r.direccion_origen }}</td>
-                <td>{{ r.direccion_destino }}</td>
-                <td>{{ r.get_tipo_servicio_display }}</td>
-            </tr>
+                <tr>
+                    <td>{{ r.id }}</td>
+                    <td>{{ r.cliente.nombre }}</td>
+                    <td>{{ r.fecha_mudanza }}</td>
+                    <td>{{ r.hora_mudanza }}</td>
+                    <td>{{ r.direccion_origen }}</td>
+                    <td>{{ r.direccion_destino }}</td>
+                    <td>
+                        {% if r.tipo_servicio == 'local' %}
+                            <span class="badge badge-local">Local</span>
+                        {% elif r.tipo_servicio == 'nacional' %}
+                            <span class="badge badge-nacional">Nacional</span>
+                        {% else %}
+                            <span class="badge badge-internacional">Internacional</span>
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
+            </tbody>
         </table>
     {% else %}
-        <p>No hay reservas registradas.</p>
+        <p class="mt-2">No hay reservas registradas.</p>
     {% endif %}
-</body>
-</html>
+
+    <div class="mt-3">
+        <a class="btn" href="{% url 'reservas:crear_reserva' %}">Crear nueva reserva</a>
+    </div>
+{% endblock %}
+

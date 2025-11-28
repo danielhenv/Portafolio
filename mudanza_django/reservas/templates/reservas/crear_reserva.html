@@ -1,18 +1,28 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Nueva reserva</title>
-</head>
-<body>
-    <h1>Crear nueva reserva de mudanza</h1>
+{% extends 'base.html' %}
 
-    <form method="post">
+{% block title %}Nueva reserva{% endblock %}
+
+{% block content %}
+    <h1>Nueva reserva de mudanza</h1>
+
+    <form method="post" class="mt-2">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar</button>
-    </form>
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
 
-    <p><a href="{% url 'reservas:lista_reservas' %}">Volver al listado</a></p>
-</body>
-</html>
+        <button class="btn" type="submit">Guardar reserva</button>
+        <a href="{% url 'reservas:lista_reservas' %}" class="btn btn-secondary mt-1">Volver al listado</a>
+    </form>
+{% endblock %}
+
