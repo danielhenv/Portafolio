@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Sesión cerrada{% endblock %}
+
+{% block content %}
+    <h1>Has cerrado sesión</h1>
+    <p>Tu sesión se ha cerrado correctamente.</p>
+    <p><a href="{% url 'login' %}" class="btn">Volver a iniciar sesión</a></p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Acceso denegado{% endblock %}
+
+{% block content %}
+    <h1>Acceso denegado</h1>
+    <p class="mt-1">
+        No tienes permisos para acceder a este recurso o evento.
+    </p>
+    <div class="mt-2">
+        <a href="{% url 'eventos:lista_eventos' %}" class="btn btn-secondary">Volver al listado</a>
+    </div>
+{% endblock %}
+
