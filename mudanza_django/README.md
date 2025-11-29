@@ -51,33 +51,6 @@ Plantilla base para unificar el diseño de las vistas.
 
 Archivos estáticos organizados para aplicar estilos globales.
 
-mudanza_django/
-│
-├── mudanza_site/
-│   ├── settings.py
-│   ├── urls.py
-│   └── ...
-│
-├── reservas/
-│   ├── models.py
-│   ├── forms.py
-│   ├── views.py
-│   ├── urls.py
-│   └── templates/
-│       └── reservas/
-│           ├── lista_reservas.html
-│           └── crear_reserva.html
-│
-├── templates/
-│   └── registration/
-│       └── login.html
-│
-├── static/
-│   └── css/
-│       └── estilos.css
-│
-└── manage.py
-
 
 Instalación y ejecución
 1. Creación del entorno virtual
