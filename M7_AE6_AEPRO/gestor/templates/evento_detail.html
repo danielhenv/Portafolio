@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Evento: {{ evento.titulo }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Detalle del Evento</h1>
+    
+    <a href="{% url 'eventos_update' evento.id %}" class="btn btn-warning mb-3">Editar</a>
+    <a href="{% url 'eventos_delete' evento.id %}" class="btn btn-danger mb-3">Eliminar</a>
+    <a href="{% url 'eventos_list' %}" class="btn btn-secondary mb-3 ms-5">Volver a Eventos</a>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ evento.titulo }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ evento.fecha }}</h6>
+            <p class="card-text"><strong>Descripción:</strong> {{ evento.descripcion }}</p>
+            
+        </div>
+    </div>
+    <div>
+    <h3 class="mt-4">Voluntarios Asociados</h3>
+    {% if evento.voluntarios.all %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for voluntario in evento.voluntarios.all %}
+                    <tr>
+                        <td>{{ voluntario.nombre }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-muted">No hay voluntarios asociados a este evento.</p>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

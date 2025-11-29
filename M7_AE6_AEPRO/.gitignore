@@ -1,0 +1,55 @@
+# ======================
+# Entornos Virtuales
+# ======================
+venv/
+env/
+ENV/
+.venv/
+.VENV/
+
+# ======================
+# Archivos de configuración del sistema
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# Archivos compilados de Python
+# ======================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ======================
+# Archivos de logs y backups
+# ======================
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+*.bak
+
+# ======================
+# Configuraciones del entorno local
+# ======================
+# Para que cada uno use su propia DB o variables locales
+proyecto_ong/settings.py
+*.env
+.env.local
+.env.*
+
+# ======================
+# Archivos temporales o cache de editores
+# ======================
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ======================
+# Archivos de compilación
+# ======================
+build/
+dist/
+*.egg-info/
