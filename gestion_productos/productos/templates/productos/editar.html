@@ -3,13 +3,17 @@
 {% block title %}Editar producto{% endblock %}
 
 {% block content %}
-<h2>Editar producto: {{ producto.nombre }}</h2>
+<div class="card">
+    <h2>Editar producto: {{ producto.nombre }}</h2>
+    <p class="text-muted">Modifica los datos del producto.</p>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-    <button type="submit">Guardar cambios</button>
-    <a href="{% url 'detalle_producto' producto.id %}">Cancelar</a>
-</form>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a href="{% url 'detalle_producto' producto.id %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}
+

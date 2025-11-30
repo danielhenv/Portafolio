@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Gestión de productos{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="{% static 'productos/css/styles.css' %}">
 </head>
 <body>
 <header>
@@ -13,18 +14,20 @@
         <a href="{% url 'lista_productos' %}">Productos</a>
         <a href="{% url 'lista_categorias' %}">Categorías</a>
         <a href="{% url 'lista_etiquetas' %}">Etiquetas</a>
+        <a href="{% url 'consultas_productos' %}">Consultas</a>
 
         {% if user.is_authenticated %}
-           <span style="margin-left: 15px;">Hola, {{ user.username }}</span>
-
-           <form method="post" action="{% url 'logout' %}" style="display:inline;">
-               {% csrf_token %}
-               <button type="submit" style="background:none;border:none;color:blue;cursor:pointer;text-decoration:underline;margin-left:10px;">
-                   Cerrar sesión
-               </button>
-           </form>
+            <span style="margin-left: 15px;">Hola, {{ user.username }}</span>
+            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary" style="margin-left: 10px;">
+                    Cerrar sesión
+                </button>
+            </form>
         {% else %}
-            <a style="margin-left: 20px;" href="{% url 'login' %}">Iniciar sesión</a>
+            <a href="{% url 'login' %}" class="btn btn-primary" style="margin-left: 20px;">
+                Iniciar sesión
+            </a>
         {% endif %}
     </nav>
 </header>
@@ -39,3 +42,5 @@
 </footer>
 </body>
 </html>
+
+

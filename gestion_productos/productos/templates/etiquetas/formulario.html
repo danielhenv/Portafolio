@@ -3,13 +3,17 @@
 {% block title %}{{ titulo }}{% endblock %}
 
 {% block content %}
-<h2>{{ titulo }}</h2>
+<div class="card">
+    <h2>{{ titulo }}</h2>
+    <p class="text-muted">Completa los datos de la etiqueta.</p>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-    <button type="submit">Guardar</button>
-    <a href="{% url 'lista_etiquetas' %}">Cancelar</a>
-</form>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'lista_etiquetas' %}" class="btn btn_secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}
+

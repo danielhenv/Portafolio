@@ -3,13 +3,17 @@
 {% block title %}Crear producto{% endblock %}
 
 {% block content %}
-<h2>Crear producto</h2>
+<div class="card">
+    <h2>Crear producto</h2>
+    <p class="text-muted">Completa los datos del nuevo producto.</p>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-    <button type="submit">Guardar</button>
-    <a href="{% url 'lista_productos' %}">Cancelar</a>
-</form>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'lista_productos' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}
+

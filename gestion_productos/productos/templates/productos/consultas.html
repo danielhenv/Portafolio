@@ -1,55 +1,62 @@
 {% extends "base.html" %}
 
-{% block title %}Consultas ORM{% endblock %}
+{% block title %}Consultas ORM y SQL{% endblock %}
 
 {% block content %}
-<h2>Consultas ORM de Productos</h2>
+<div class="card">
+    <h2>Consultas ORM</h2>
+    <p class="text-muted">Ejemplos de consultas usando el ORM de Django.</p>
 
-<h3>Productos con precio &gt; 100</h3>
-<ul>
-    {% for p in productos_caros %}
-        <li>{{ p.nombre }} - {{ p.precio }}</li>
-    {% empty %}
-        <li>No hay productos caros.</li>
-    {% endfor %}
-</ul>
+    <h3 style="margin-top: 10px;">Productos con precio &gt; 100 (filter)</h3>
+    <ul>
+        {% for p in productos_caros %}
+            <li>{{ p.nombre }} — {{ p.precio }}</li>
+        {% empty %}
+            <li class="text-muted">No hay productos caros.</li>
+        {% endfor %}
+    </ul>
 
-<h3>Productos que NO son baratos (precio &gt;= 50)</h3>
-<ul>
-    {% for p in productos_no_baratos %}
-        <li>{{ p.nombre }} - {{ p.precio }}</li>
-    {% empty %}
-        <li>No hay resultados.</li>
-    {% endfor %}
-</ul>
+    <h3 style="margin-top: 15px;">Productos que NO son baratos (exclude precio &lt; 50)</h3>
+    <ul>
+        {% for p in productos_no_baratos %}
+            <li>{{ p.nombre }} — {{ p.precio }}</li>
+        {% empty %}
+            <li class="text-muted">No hay resultados.</li>
+        {% endfor %}
+    </ul>
 
-<h3>Categorías con conteo de productos</h3>
-<ul>
-    {% for c in categorias_con_conteo %}
-        <li>{{ c.nombre }}: {{ c.num_productos }} productos</li>
-    {% empty %}
-        <li>No hay categorías.</li>
-    {% endfor %}
-</ul>
+    <h3 style="margin-top: 15px;">Categorías con conteo de productos (annotate)</h3>
+    <ul>
+        {% for c in categorias_con_conteo %}
+            <li>{{ c.nombre }}: {{ c.num_productos }} producto{% if c.num_productos != 1 %}s{% endif %}</li>
+        {% empty %}
+            <li class="text-muted">No hay categorías.</li>
+        {% endfor %}
+    </ul>
 
-<h3>Precio promedio de todos los productos</h3>
-<p>
-    {% if precio_promedio %}
-        {{ precio_promedio }}
-    {% else %}
-        No hay productos para calcular el promedio.
-    {% endif %}
-</p>
+    <h3 style="margin-top: 15px;">Precio promedio de todos los productos (aggregate)</h3>
+    <p>
+        {% if precio_promedio %}
+            {{ precio_promedio }}
+        {% else %}
+            <span class="text-muted">No hay productos para calcular el promedio.</span>
+        {% endif %}
+    </p>
+</div>
 
-<h3>Consulta SQL personalizada (raw)</h3>
+<div class="card">
+    <h2>Consulta SQL personalizada (raw)</h2>
+    <p class="text-muted">
+        Resultados de la consulta <code>SELECT * FROM productos_producto WHERE precio &gt; 100 ORDER BY precio DESC</code>
+    </p>
 
-<ul>
-    {% for p in productos_raw %}
-        <li>{{ p.nombre }} — Precio: {{ p.precio }}</li>
-    {% empty %}
-        <li>No hay productos que coincidan con esta consulta.</li>
-    {% endfor %}
-</ul>
-
-
+    <ul>
+        {% for p in productos_raw %}
+            <li>{{ p.id }} — {{ p.nombre }} — {{ p.precio }}</li>
+        {% empty %}
+            <li class="text-muted">No hay resultados para la consulta SQL.</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
+

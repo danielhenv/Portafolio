@@ -3,26 +3,37 @@
 {% block title %}Etiquetas{% endblock %}
 
 {% block content %}
-<h2>Listado de Etiquetas</h2>
+<div class="card">
+    <h2>Listado de Etiquetas</h2>
+    <p class="text-muted">Administra las etiquetas que se pueden asignar a los productos.</p>
 
-<p><a href="{% url 'crear_etiqueta' %}">+ Crear nueva etiqueta</a></p>
+    <p style="margin-top: 10px;">
+        <a href="{% url 'crear_etiqueta' %}" class="btn btn-primary">+ Crear nueva etiqueta</a>
+    </p>
 
-<table>
-    <tr>
-        <th>Etiqueta</th>
-        <th>Acciones</th>
-    </tr>
-
-    {% for e in etiquetas %}
+    <table>
+        <thead>
         <tr>
-            <td>{{ e.nombre }}</td>
-            <td>
-                <a href="{% url 'editar_etiqueta' e.id %}">Editar</a> |
-                <a href="{% url 'eliminar_etiqueta' e.id %}">Eliminar</a>
-            </td>
+            <th>Nombre</th>
+            <th>Acciones</th>
         </tr>
-    {% empty %}
-        <tr><td colspan="2">No hay etiquetas.</td></tr>
-    {% endfor %}
-</table>
+        </thead>
+        <tbody>
+        {% for e in etiquetas %}
+            <tr>
+                <td>{{ e.nombre }}</td>
+                <td>
+                    <a href="{% url 'editar_etiqueta' e.id %}" class="btn btn-primary">Editar</a>
+                    <a href="{% url 'eliminar_etiqueta' e.id %}" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="2">No hay etiquetas.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
+
