@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Etiquetas{% endblock %}
+
+{% block content %}
+<h2>Listado de Etiquetas</h2>
+
+<p><a href="{% url 'crear_etiqueta' %}">+ Crear nueva etiqueta</a></p>
+
+<table>
+    <tr>
+        <th>Etiqueta</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for e in etiquetas %}
+        <tr>
+            <td>{{ e.nombre }}</td>
+            <td>
+                <a href="{% url 'editar_etiqueta' e.id %}">Editar</a> |
+                <a href="{% url 'eliminar_etiqueta' e.id %}">Eliminar</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="2">No hay etiquetas.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

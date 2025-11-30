@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Consultas ORM{% endblock %}
+
+{% block content %}
+<h2>Consultas ORM de Productos</h2>
+
+<h3>Productos con precio &gt; 100</h3>
+<ul>
+    {% for p in productos_caros %}
+        <li>{{ p.nombre }} - {{ p.precio }}</li>
+    {% empty %}
+        <li>No hay productos caros.</li>
+    {% endfor %}
+</ul>
+
+<h3>Productos que NO son baratos (precio &gt;= 50)</h3>
+<ul>
+    {% for p in productos_no_baratos %}
+        <li>{{ p.nombre }} - {{ p.precio }}</li>
+    {% empty %}
+        <li>No hay resultados.</li>
+    {% endfor %}
+</ul>
+
+<h3>Categorías con conteo de productos</h3>
+<ul>
+    {% for c in categorias_con_conteo %}
+        <li>{{ c.nombre }}: {{ c.num_productos }} productos</li>
+    {% empty %}
+        <li>No hay categorías.</li>
+    {% endfor %}
+</ul>
+
+<h3>Precio promedio de todos los productos</h3>
+<p>
+    {% if precio_promedio %}
+        {{ precio_promedio }}
+    {% else %}
+        No hay productos para calcular el promedio.
+    {% endif %}
+</p>
+
+<h3>Consulta SQL personalizada (raw)</h3>
+
+<ul>
+    {% for p in productos_raw %}
+        <li>{{ p.nombre }} — Precio: {{ p.precio }}</li>
+    {% empty %}
+        <li>No hay productos que coincidan con esta consulta.</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
