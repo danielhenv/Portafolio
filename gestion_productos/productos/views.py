@@ -2,19 +2,21 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Producto, DetalleProducto, Categoria, Etiqueta
 from .forms import ProductoForm, CategoriaForm, EtiquetaForm
 from django.db.models import Count, Avg
+from django.contrib.auth.decorators import login_required
+
 
 
 def index(request):
     return render(request, 'index.html')
 
-
+@login_required
 def lista_productos(request):
     productos = Producto.objects.select_related('categoria').prefetch_related('etiquetas')
     return render(request, 'productos/lista.html', {
         'productos': productos
     })
 
-
+@login_required
 def detalle_producto(request, id):
     producto = get_object_or_404(Producto.objects.select_related('categoria'), pk=id)
     # detalle puede no existir aún
@@ -24,7 +26,7 @@ def detalle_producto(request, id):
         'detalle': detalle,
     })
 
-
+@login_required
 def crear_producto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST)
@@ -38,7 +40,7 @@ def crear_producto(request):
         'form': form
     })
 
-
+@login_required
 def editar_producto(request, id):
     producto = get_object_or_404(Producto, pk=id)
     # si ya hay detalle, precargamos datos
@@ -62,7 +64,7 @@ def editar_producto(request, id):
         'producto': producto,
     })
 
-
+@login_required
 def eliminar_producto(request, id):
     producto = get_object_or_404(Producto, pk=id)
 
@@ -79,13 +81,14 @@ def eliminar_producto(request, id):
 # -----------------------------
 # CRUD DE CATEGORÍAS
 # -----------------------------
+@login_required
 def lista_categorias(request):
     categorias = Categoria.objects.all()
     return render(request, 'categorias/lista.html', {
         'categorias': categorias
     })
 
-
+@login_required
 def crear_categoria(request):
     if request.method == 'POST':
         form = CategoriaForm(request.POST)
@@ -100,7 +103,7 @@ def crear_categoria(request):
         'titulo': 'Crear categoría',
     })
 
-
+@login_required
 def editar_categoria(request, id):
     categoria = get_object_or_404(Categoria, pk=id)
 
@@ -117,7 +120,7 @@ def editar_categoria(request, id):
         'titulo': 'Editar categoría',
     })
 
-
+@login_required
 def eliminar_categoria(request, id):
     categoria = get_object_or_404(Categoria, pk=id)
 
@@ -135,13 +138,14 @@ def eliminar_categoria(request, id):
 # -----------------------------
 # CRUD DE ETIQUETAS
 # -----------------------------
+@login_required
 def lista_etiquetas(request):
     etiquetas = Etiqueta.objects.all()
     return render(request, 'etiquetas/lista.html', {
         'etiquetas': etiquetas
     })
 
-
+@login_required
 def crear_etiqueta(request):
     if request.method == 'POST':
         form = EtiquetaForm(request.POST)
@@ -156,7 +160,7 @@ def crear_etiqueta(request):
         'titulo': 'Crear etiqueta',
     })
 
-
+@login_required
 def editar_etiqueta(request, id):
     etiqueta = get_object_or_404(Etiqueta, pk=id)
 
@@ -173,7 +177,7 @@ def editar_etiqueta(request, id):
         'titulo': 'Editar etiqueta',
     })
 
-
+@login_required
 def eliminar_etiqueta(request, id):
     etiqueta = get_object_or_404(Etiqueta, pk=id)
 
@@ -187,7 +191,7 @@ def eliminar_etiqueta(request, id):
 
 
 
-
+@login_required
 def consultas_productos(request):
     productos_caros = Producto.objects.filter(precio__gt=100)
     productos_no_baratos = Producto.objects.exclude(precio__lt=50)
