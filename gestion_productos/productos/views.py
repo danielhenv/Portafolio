@@ -7,7 +7,12 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    return render(request, 'index.html')
+    visitas = request.session.get('visitas', 0)
+    request.session['visitas'] = visitas + 1
+
+    return render(request, 'index.html', {
+        'visitas': visitas + 1,
+    })
 
 @login_required
 def lista_productos(request):
