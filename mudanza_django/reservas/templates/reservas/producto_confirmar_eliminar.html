@@ -3,13 +3,16 @@
 {% block title %}Eliminar producto{% endblock %}
 
 {% block content %}
-<h1>Eliminar producto</h1>
+    <h1>Eliminar producto</h1>
 
-<p>¿Seguro que deseas eliminar el producto "{{ object.nombre }}"?</p>
+    <p class="mt-1">
+        ¿Seguro que deseas eliminar el producto <strong>{{ producto.nombre }}</strong>?
+    </p>
 
-<form method="post">
-    {% csrf_token %}
-    <button class="btn btn-danger" type="submit">Eliminar</button>
-    <a class="btn btn-secondary" href="{% url 'reservas:producto_lista' %}">Cancelar</a>
-</form>
+    <form method="post" class="mt-2">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'reservas:producto_lista' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
 {% endblock %}
+

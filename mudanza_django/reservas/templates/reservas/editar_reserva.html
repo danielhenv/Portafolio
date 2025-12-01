@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ titulo }}{% endblock %}
+{% block title %}Editar reserva{% endblock %}
 
 {% block content %}
-    <h1>{{ titulo }}</h1>
+    <h1>Editar reserva #{{ reserva.id }}</h1>
 
     <form method="post" class="mt-2">
         {% csrf_token %}
@@ -21,8 +21,7 @@
             </div>
         {% endfor %}
 
-        <button type="submit" class="btn">Guardar</button>
-        <a href="{% url 'reservas:producto_lista' %}" class="btn btn-secondary mt-1">Cancelar</a>
+        <button type="submit" class="btn">Guardar cambios</button>
+        <a href="{% url 'reservas:lista_reservas' %}" class="btn btn-secondary mt-1">Cancelar</a>
     </form>
 {% endblock %}
-

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Reserva, Cliente
+from .models import Producto
 
 class ReservaForm(forms.ModelForm):
     class Meta:
@@ -18,3 +19,8 @@ class ReservaForm(forms.ModelForm):
             'hora_mudanza': forms.TimeInput(attrs={'type': 'time'}),
             'notas': forms.Textarea(attrs={'rows': 3}),
         }
+
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['nombre', 'precio', 'cantidad']

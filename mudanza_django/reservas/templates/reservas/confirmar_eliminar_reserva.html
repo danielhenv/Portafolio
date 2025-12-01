@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar reserva{% endblock %}
+
+{% block content %}
+    <h1>Eliminar reserva</h1>
+
+    <p>¿Estás seguro de que quieres eliminar la reserva #{{ reserva.id }} de {{ reserva.cliente.nombre }}?</p>
+
+    <ul>
+        <li>Fecha: {{ reserva.fecha_mudanza }} {{ reserva.hora_mudanza }}</li>
+        <li>Origen: {{ reserva.direccion_origen }}</li>
+        <li>Destino: {{ reserva.direccion_destino }}</li>
+        <li>Tipo: {{ reserva.tipo_servicio }}</li>
+    </ul>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'reservas:lista_reservas' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}
