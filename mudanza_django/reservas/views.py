@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ReservaForm
 from .models import Reserva
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from .models import Producto
 
 
 @login_required
@@ -28,5 +32,32 @@ def crear_reserva(request):
     else:
         form = ReservaForm()
     return render(request, 'reservas/crear_reserva.html', {'form': form})
+
+
+
+class ProductoListaView(LoginRequiredMixin, ListView):
+    model = Producto
+    template_name = 'reservas/producto_lista.html'
+    context_object_name = 'productos'
+
+
+class ProductoCrearView(LoginRequiredMixin, CreateView):
+    model = Producto
+    fields = ['nombre', 'precio', 'cantidad']
+    template_name = 'reservas/producto_form.html'
+    success_url = reverse_lazy('reservas:producto_lista')
+
+
+class ProductoEditarView(LoginRequiredMixin, UpdateView):
+    model = Producto
+    fields = ['nombre', 'precio', 'cantidad']
+    template_name = 'reservas/producto_form.html'
+    success_url = reverse_lazy('reservas:producto_lista')
+
+
+class ProductoEliminarView(LoginRequiredMixin, DeleteView):
+    model = Producto
+    template_name = 'reservas/producto_confirmar_eliminar.html'
+    success_url = reverse_lazy('reservas:producto_lista')
 
 

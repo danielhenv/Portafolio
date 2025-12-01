@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Productos{% endblock %}
+
+{% block content %}
+<h1>Listado de productos</h1>
+
+<a href="{% url 'reservas:producto_crear' %}" class="btn">Nuevo producto</a>
+
+<table class="table mt-2">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for p in productos %}
+        <tr>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.precio }}</td>
+            <td>{{ p.cantidad }}</td>
+            <td>
+                <a class="btn btn-secondary" href="{% url 'reservas:producto_editar' p.pk %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'reservas:producto_eliminar' p.pk %}">Eliminar</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="4">No hay productos registrados.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
