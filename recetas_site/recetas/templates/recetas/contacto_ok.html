@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mensaje enviado{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>¡Gracias por tu mensaje!</h1>
+    <p>Nos pondremos en contacto contigo lo antes posible.</p>
+    <a href="{% url 'recetas:home' %}" class="btn btn-primary mt-3">Volver al inicio</a>
+</div>
+{% endblock %}

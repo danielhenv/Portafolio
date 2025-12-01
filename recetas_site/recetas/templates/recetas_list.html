@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Recetas - App de Recetas{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-center">Todas las recetas</h1>
+
+<div class="text-end mb-3">
+    <a href="{% url 'recetas:crear_receta' %}" class="btn btn-success">
+        + Nueva receta
+    </a>
+</div>
+
+<div class="row">
+    {% for receta in recetas %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if receta.imagen %}
+                    <img src="{{ receta.imagen.url }}" class="card-img-top" alt="{{ receta.nombre }}">
+                {% else %}
+                    <img src="{% static 'recetas/img/placeholder.jpg' %}" class="card-img-top" alt="Receta">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ receta.nombre }}</h5>
+                    <p class="card-text flex-grow-1">
+                        {{ receta.ingredientes|truncatewords:20 }}
+                    </p>
+                    <a href="{% url 'recetas:detalle_receta' receta.pk %}" class="btn btn-primary mt-auto">
+                        Ver receta
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No hay recetas cargadas aún. ¿Quieres crear la primera?</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
