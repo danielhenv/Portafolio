@@ -7,6 +7,7 @@ class ReservaForm(forms.ModelForm):
         model = Reserva
         fields = [
             'cliente',
+            'producto',
             'fecha_mudanza',
             'hora_mudanza',
             'direccion_origen',
