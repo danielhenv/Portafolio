@@ -8,6 +8,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Producto
 from django.contrib import messages
 from .forms import ProductoForm
+from .models import Cliente
+from .forms import ClienteForm
 
 
 @login_required
@@ -149,3 +151,27 @@ def producto_eliminar(request, pk):
     return render(request, 'reservas/producto_confirmar_eliminar.html', {'producto': producto})
 
 
+class ClienteListaView(LoginRequiredMixin, ListView):
+    model = Cliente
+    template_name = 'reservas/cliente_lista.html'
+    context_object_name = 'clientes'
+
+
+class ClienteCrearView(LoginRequiredMixin, CreateView):
+    model = Cliente
+    form_class = ClienteForm
+    template_name = 'reservas/cliente_form.html'
+    success_url = reverse_lazy('reservas:cliente_lista')
+
+
+class ClienteEditarView(LoginRequiredMixin, UpdateView):
+    model = Cliente
+    form_class = ClienteForm
+    template_name = 'reservas/cliente_form.html'
+    success_url = reverse_lazy('reservas:cliente_lista')
+
+
+class ClienteEliminarView(LoginRequiredMixin, DeleteView):
+    model = Cliente
+    template_name = 'reservas/cliente_confirmar_eliminar.html'
+    success_url = reverse_lazy('reservas:cliente_lista')

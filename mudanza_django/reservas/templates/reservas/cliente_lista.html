@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Clientes{% endblock %}
+
+{% block content %}
+    <h1>Clientes</h1>
+
+    <div class="mt-2">
+        <a class="btn" href="{% url 'reservas:cliente_crear' %}">Nuevo cliente</a>
+        <a class="btn btn-secondary" href="{% url 'reservas:lista_reservas' %}">Volver a reservas</a>
+    </div>
+
+    {% if clientes %}
+        <table class="table mt-2">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for c in clientes %}
+                <tr>
+                    <td>{{ c.id }}</td>
+                    <td>{{ c.nombre }}</td>
+                    <td>{{ c.email }}</td>
+                    <td>{{ c.telefono }}</td>
+                    <td>
+                        <a class="btn btn-secondary" href="{% url 'reservas:cliente_editar' c.pk %}">Editar</a>
+                        <a class="btn btn-danger" href="{% url 'reservas:cliente_eliminar' c.pk %}">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="mt-2">No hay clientes registrados.</p>
+    {% endif %}
+{% endblock %}
