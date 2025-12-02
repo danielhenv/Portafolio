@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}App Mudanza{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+<div class="layout">
+    <header class="navbar">
+        <div class="navbar-title">
+            🚚 App Mudanza
+        </div>
+        <nav class="navbar-links">
+            <a href="{% url 'reservas:lista_reservas' %}">Reservas</a>
+            <a href="{% url 'reservas:producto_lista' %}">Productos</a>
+            <a href="{% url 'reservas:cliente_lista' %}">Clientes</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Cerrar sesión</a>
+            {% else %}
+                <a href="{% url 'login' %}">Iniciar sesión</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="card">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        Sistema de reservas de mudanzas · Django · {{ user.username|default:"Invitado" }}
+    </footer>
+</div>
+</body>
+</html>

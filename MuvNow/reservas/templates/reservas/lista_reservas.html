@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Listado de reservas{% endblock %}
+
+{% block content %}
+    <h1>Listado de reservas</h1>
+
+    <div class="mt-2">
+        <a class="btn" href="{% url 'reservas:crear_reserva' %}">Crear nueva reserva</a>
+    </div>
+
+    {% if reservas %}
+        <table class="table mt-2">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Tipo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for reserva in reservas %}
+                <tr>
+                    <td>{{ reserva.id }}</td>
+                    <td>{{ reserva.cliente.nombre }}</td>
+                    <td>{{ reserva.fecha_mudanza }}</td>
+                    <td>{{ reserva.hora_mudanza }}</td>
+                    <td>{{ reserva.direccion_origen }}</td>
+                    <td>{{ reserva.direccion_destino }}</td>
+                    <td>{{ reserva.tipo_servicio }}</td>
+                    <td>
+                        <a class="btn btn-secondary" href="{% url 'reservas:editar_reserva' reserva.pk %}">
+                            Editar
+                        </a>
+                        <a class="btn btn-danger" href="{% url 'reservas:eliminar_reserva' reserva.pk %}">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="mt-2">No hay reservas registradas.</p>
+    {% endif %}
+{% endblock %}
+

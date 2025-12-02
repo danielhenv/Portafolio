@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+    <h1>{{ titulo }}</h1>
+
+    <form method="post" class="mt-2">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn">Guardar</button>
+        <a href="{% url 'reservas:producto_lista' %}" class="btn btn-secondary mt-1">Cancelar</a>
+    </form>
+{% endblock %}
+
