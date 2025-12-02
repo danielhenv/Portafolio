@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inicio - App de Recetas{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Bienvenido a la App de Recetas</h1>
+        <p class="col-md-8 fs-4">
+            Descubre recetas fáciles y deliciosas para todos los días. 
+            Explora, experimenta y disfruta en la cocina.
+        </p>
+        <a class="btn btn-primary btn-lg" href="{% url 'recetas:lista_recetas' %}">
+            Ver todas las recetas
+        </a>
+    </div>
+</div>
+
+<h2 class="mb-3">Últimas recetas</h2>
+
+<div class="row">
+    {% for receta in recetas %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if receta.imagen %}
+                    <img src="{{ receta.imagen.url }}" class="card-img-top" alt="{{ receta.nombre }}">
+                {% else %}
+                    <img src="{% static 'recetas/img/placeholder.jpg' %}" class="card-img-top" alt="Receta">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ receta.nombre }}</h5>
+                    <p class="card-text">
+                        {{ receta.ingredientes|truncatewords:15 }}
+                    </p>
+                    <a href="{% url 'recetas:detalle_receta' receta.pk %}" class="btn btn-outline-primary btn-sm">
+                        Ver detalles
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No hay recetas aún. ¡Crea la primera!</p>
+    {% endfor %}
+</div>
+{% endblock %}
